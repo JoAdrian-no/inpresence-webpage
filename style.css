@@ -1,143 +1,165 @@
 :root {
-    --bg: #020405;
-    --accent: #00d2ff;
-    --accent-dim: rgba(0, 210, 255, 0.2);
-    --text: #f0f0f0;
-    --text-dim: rgba(240, 240, 240, 0.4);
-    --mono: 'JetBrains Mono', monospace;
-    --main: 'Urbanist', sans-serif;
+    --bg: #030507;
+    --accent: #2ac7ff;
+    --heart-red: #ff3344;
+    --text: #ffffff;
+    --font-main: 'Urbanist', sans-serif;
+    --font-hero: 'Plus Jakarta Sans', sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: var(--main);
+    font-family: var(--font-main);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- Det visuelle "Engine" laget --- */
-.tech-canvas {
+/* --- 3D Neural Mask Engine --- */
+.viewport-3d {
     position: fixed;
     inset: 0;
-    z-index: -1;
-    background: radial-gradient(circle at 50% 50%, #050d12 0%, var(--bg) 100%);
+    z-index: -2;
+    perspective: 1200px; /* Gir dybdefølelse */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at 50% 50%, #0a1218 0%, var(--bg) 100%);
 }
 
-.grid-overlay {
+.neural-mask {
+    width: 600px;
+    height: 320px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateMask 25s infinite linear;
+}
+
+.mask-core {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(var(--accent-dim) 1px, transparent 1px),
-                      linear-gradient(90deg, var(--accent-dim) 1px, transparent 1px);
-    background-size: 60px 60px;
-    opacity: 0.1;
-    mask-image: radial-gradient(circle, black, transparent 80%);
+    border: 1px solid rgba(42, 199, 255, 0.1);
+    border-radius: 80px; /* Formet som bildet ditt */
+    transform-style: preserve-3d;
+    background: rgba(42, 199, 255, 0.02);
 }
 
-.plexus-svg {
-    width: 100%;
-    height: 100%;
-    opacity: 0.3;
-    transform: scale(1.1);
+/* De to "øynene" fra bildet ditt */
+.eye {
+    position: absolute;
+    top: 50%;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    transform: translateZ(50px) translateY(-50%); /* Flyttet frem i 3D-rommet */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-.geometry-engine {
-    animation: sceneFloat 30s infinite ease-in-out;
-    transform-origin: center;
+.eye.left { left: 15%; }
+.eye.right { right: 15%; }
+
+.heart {
+    color: var(--heart-red);
+    font-size: 4rem;
+    filter: drop-shadow(0 0 15px var(--heart-red));
+    animation: heartBeat 2s infinite ease-in-out;
 }
 
-.wireframe {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 0.5;
-    stroke-dasharray: 400;
-    stroke-dashoffset: 400;
-    animation: drawStroke 15s infinite alternate ease-in-out;
-    filter: url(#glow);
+.core-node {
+    width: 60px;
+    height: 60px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 30px var(--accent);
 }
 
-.pulse-node {
-    fill: var(--accent);
-    filter: url(#glow);
-    animation: nodePulse 4s infinite alternate;
+/* Neural Connectors - linjer som binder 3D-rommet sammen */
+.connector {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    height: 1px;
+    opacity: 0.2;
 }
+
+.c1 { width: 100%; top: 50%; transform: translateZ(-50px); }
+.c2 { width: 1px; height: 100%; left: 50%; transform: translateZ(30px); }
+.c3 { width: 120%; top: 20%; left: -10%; transform: rotateZ(15deg) translateZ(-20px); }
 
 /* --- Animasjoner --- */
-@keyframes sceneFloat {
-    0%, 100% { transform: translate(0,0) rotate(0deg) scale(1); }
-    50% { transform: translate(-20px, 20px) rotate(2deg) scale(1.05); }
+@keyframes rotateMask {
+    0% { transform: rotateY(-20deg) rotateX(5deg); }
+    50% { transform: rotateY(20deg) rotateX(-5deg); }
+    100% { transform: rotateY(-20deg) rotateX(5deg); }
 }
 
-@keyframes drawStroke {
-    0% { stroke-dashoffset: 400; opacity: 0; }
-    50% { stroke-dashoffset: 0; opacity: 0.4; }
-    100% { stroke-dashoffset: -400; opacity: 0; }
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
 }
 
-@keyframes nodePulse {
-    0% { opacity: 0.2; r: 1px; }
-    100% { opacity: 1; r: 3px; }
+.atmosphere {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 20%, var(--bg) 90%);
+    z-index: -1;
+    pointer-events: none;
 }
 
-/* --- Typografi & Layout --- */
-.container { width: 90%; max-width: 1400px; margin: 0 auto; }
+/* --- Layout --- */
+.container { width: 88%; max-width: 1400px; margin: 0 auto; }
 
 nav { padding: 40px 0; }
-.logo { display: flex; flex-direction: column; }
-.logo-main { font-weight: 600; letter-spacing: 4px; text-transform: uppercase; font-size: 14px; color: var(--accent); }
-.logo-sub { font-family: var(--mono); font-size: 8px; color: var(--text-dim); }
+.logo { font-weight: 600; text-transform: uppercase; letter-spacing: 4px; font-size: 14px; color: var(--accent); }
 
 .hero { padding: 60px 0; }
 h1 {
+    font-family: var(--font-hero);
     font-size: clamp(2.5rem, 10vw, 7rem);
     font-weight: 200;
     line-height: 0.85;
     text-transform: uppercase;
     letter-spacing: -4px;
     margin-bottom: 60px;
-    background: linear-gradient(180deg, #fff 0%, var(--text-dim) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 .service-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
-    border-top: 1px solid var(--accent-dim);
+    gap: 30px;
+    border-top: 1px solid rgba(255,255,255,0.06);
     padding-top: 30px;
 }
 
 .service-item {
-    font-family: var(--mono);
-    font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+    font-family: var(--font-main);
+    font-size: clamp(0.9rem, 2vw, 1.4rem);
     color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.service-item .num { font-size: 0.6em; opacity: 0.5; border: 1px solid var(--accent); padding: 2px 5px; border-radius: 3px; }
-
-.content-architecture { padding: 80px 0; max-width: 900px; }
-.leading { font-size: clamp(1.5rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.1; margin-bottom: 40px; }
-.supporting { font-size: 1.1rem; font-weight: 300; color: var(--text-dim); line-height: 1.6; }
-
-footer { padding: 60px 0 100px; }
-.footer-line { width: 100%; height: 1px; background: var(--accent-dim); margin-bottom: 30px; }
-.email-link { 
-    font-family: var(--mono); 
-    color: var(--text-dim); 
-    text-decoration: none; 
-    font-size: 0.9rem; 
-    transition: 0.3s;
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
-.email-link:hover { color: var(--accent); }
+
+.content-architecture { padding: 80px 0; max-width: 1000px; }
+.leading { 
+    font-size: clamp(1.8rem, 5vw, 3.5rem); 
+    font-weight: 300; 
+    line-height: 1.1; 
+    margin-bottom: 40px; 
+    color: #fff;
+    border-left: 2px solid var(--heart-red);
+    padding-left: 30px;
+}
+.supporting { font-size: 1.2rem; color: rgba(255,255,255,0.4); padding-left: 32px; }
+
+footer { padding: 60px 0; }
+.email { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+.email:hover { color: var(--accent); }
 
 @media (max-width: 900px) {
-    .service-strip { gap: 20px; }
-    h1 { letter-spacing: -2px; }
+    .neural-mask { transform: scale(0.6); }
+    .service-strip { flex-direction: column; gap: 15px; }
 }
