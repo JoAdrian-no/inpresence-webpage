@@ -3,37 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InPresence</title>
+    <title>InPresence | Tilstedeværelse</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;400;600&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="plexus-world">
-        <svg class="plexus-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-            <defs>
-                <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:var(--accent);stop-opacity:0" />
-                    <stop offset="50%" style="stop-color:var(--accent);stop-opacity:0.2" />
-                    <stop offset="100%" style="stop-color:var(--accent);stop-opacity:0" />
-                </linearGradient>
-            </defs>
-            <g class="neural-engine">
-                <path class="wire p1" d="M100,200 L400,150 L300,500 Z" />
-                <path class="wire p2" d="M600,800 L900,700 L750,950 Z" />
-                <path class="wire p3" d="M800,100 L950,300 L650,250 Z" />
-                <path class="wire p4" d="M50,800 L250,950 L400,750 Z" />
-                
-                <line class="pulse-line" x1="400" y1="150" x2="800" y2="100" />
-                <line class="pulse-line" x1="300" y1="500" x2="750" y2="950" />
-            </g>
-        </svg>
-        <div class="node-field">
-            <div class="node n1"></div><div class="node n2"></div>
-            <div class="node n3"></div><div class="node n4"></div>
-            <div class="node n5"></div>
-        </div>
+    <div class="shader-background">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+        <div class="grid-overlay"></div>
     </div>
 
     <nav>

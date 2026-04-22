@@ -1,9 +1,9 @@
 :root {
-    --bg: #030506;
-    --accent: #2ac7ff;
+    --bg: #05070a;
+    --accent: #00d2ff;
+    --secondary: #2a5cff;
     --text: #ffffff;
     --text-dim: rgba(255, 255, 255, 0.4);
-    --border: rgba(255, 255, 255, 0.08);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,74 +16,62 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- Heldekkende Animasjon --- */
-.plexus-world {
+/* --- Shader-inspirert Bakgrunn --- */
+.shader-background {
     position: fixed;
     inset: 0;
     z-index: -2;
-    background: radial-gradient(circle at 30% 30%, #0a151a 0%, var(--bg) 100%);
+    background-color: var(--bg);
+    filter: blur(80px); /* Skaper den flytende shader-effekten */
+    opacity: 0.6;
 }
 
-.plexus-svg {
-    width: 100%; height: 100%;
-    opacity: 0.25;
-    transform: scale(1.1);
-}
-
-.neural-engine {
-    animation: worldFloat 40s infinite linear;
-    transform-origin: center;
-}
-
-.wire {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 0.5;
-    stroke-dasharray: 600;
-    stroke-dashoffset: 600;
-    animation: draw 12s infinite alternate ease-in-out;
-}
-
-.pulse-line {
-    stroke: url(#glowGrad);
-    stroke-width: 1;
-    animation: blink 8s infinite ease-in-out;
-}
-
-.node-field .node {
+.blob {
     position: absolute;
-    width: 2px; height: 2px;
-    background: var(--accent);
     border-radius: 50%;
-    box-shadow: 0 0 15px var(--accent);
-    animation: float 15s infinite ease-in-out;
+    filter: blur(40px);
+    animation: move 25s infinite alternate ease-in-out;
 }
 
-.n1 { top: 20%; left: 20%; }
-.n2 { top: 70%; left: 60%; animation-delay: -2s; }
-.n3 { top: 15%; left: 80%; animation-delay: -5s; }
-.n4 { top: 40%; left: 30%; animation-delay: -1s; }
-.n5 { top: 85%; left: 15%; animation-delay: -8s; }
-
-@keyframes worldFloat {
-    from { transform: rotate(0deg) scale(1.1); }
-    to { transform: rotate(360deg) scale(1.1); }
+.b1 {
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    top: -10%; left: -10%;
+    opacity: 0.4;
 }
 
-@keyframes draw {
-    0% { stroke-dashoffset: 600; opacity: 0; }
-    50% { stroke-dashoffset: 0; opacity: 0.3; }
-    100% { stroke-dashoffset: -600; opacity: 0; }
+.b2 {
+    width: 50vw; height: 50vw;
+    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+    bottom: -10%; right: -5%;
+    animation-duration: 30s;
+    animation-delay: -5s;
+    opacity: 0.3;
 }
 
-@keyframes blink {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 0.4; }
+.b3 {
+    width: 40vw; height: 40vw;
+    background: radial-gradient(circle, #4a00ff 0%, transparent 70%);
+    top: 30%; left: 40%;
+    animation-duration: 20s;
+    animation-delay: -10s;
+    opacity: 0.2;
 }
 
-@keyframes float {
-    0%, 100% { transform: translate(0, 0); opacity: 0.2; }
-    50% { transform: translate(40px, -40px); opacity: 0.6; }
+@keyframes move {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(10vw, 15vh) scale(1.2) rotate(90deg); }
+    100% { transform: translate(-5vw, 5vh) scale(0.9) rotate(180deg); }
+}
+
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle, black, transparent 80%);
+    z-index: 1;
 }
 
 /* --- Layout --- */
@@ -92,26 +80,33 @@ body {
 nav { padding: 40px 0; }
 .logo { font-weight: 600; text-transform: uppercase; letter-spacing: 4px; font-size: 14px; color: var(--accent); }
 
-.hero { padding: 80px 0 60px; }
-h1 { font-size: clamp(2rem, 8vw, 6rem); font-weight: 200; letter-spacing: -3px; line-height: 0.9; text-transform: uppercase; margin-bottom: 50px; }
+.hero { padding: 80px 0 40px; }
+h1 { 
+    font-size: clamp(2.5rem, 8vw, 6rem); 
+    font-weight: 200; 
+    letter-spacing: -3px; 
+    line-height: 0.9; 
+    text-transform: uppercase; 
+    margin-bottom: 50px;
+}
 
 .service-strip {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(0.9rem, 2.5vw, 2rem);
+    font-size: clamp(0.9rem, 2.2vw, 1.8rem);
     color: var(--accent);
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 30px;
 }
 
 .content-block { padding: 60px 0; max-width: 900px; }
-.leading { font-size: clamp(1.5rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.1; margin-bottom: 40px; }
+.leading { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.1; margin-bottom: 40px; color: #fff; }
 .supporting { font-size: 1.1rem; font-weight: 300; color: var(--text-dim); line-height: 1.6; }
 
 footer { padding: 60px 0; }
-.email { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; text-decoration: none; color: var(--text-dim); transition: 0.3s; }
+.email { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; text-decoration: none; color: var(--text-dim); }
 .email:hover { color: var(--accent); }
 
 @media (max-width: 900px) {
