@@ -1,11 +1,13 @@
 :root {
-    --bg: #05070a;
-    --warm-red: #FF6B6B;  /* Varmen i nærværet */
-    --tech-cyan: #41EAD4;  /* Den tekniske presisjonen */
+    --bg: #030506;
+    --warm-red: #FF6B6B;
+    --tech-cyan: #41EAD4;
     --text: #ffffff;
     --text-dim: rgba(255, 255, 255, 0.5);
-    --font-dos: 'VT323', monospace; /* DOS-inspirert font */
-    --font-clean: 'Urbanist', sans-serif;
+    --border: rgba(255, 255, 255, 0.08);
+    --font-serif: 'Noto Serif', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-header: 'Urbanist', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,54 +15,75 @@
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: var(--font-clean);
+    font-family: var(--font-serif); /* Standard font er nå Noto Serif */
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- Shader Bakgrunn med de nye fargene --- */
-.shader-background {
+/* --- Plexus Animasjon --- */
+.plexus-world {
     position: fixed;
     inset: 0;
     z-index: -2;
-    background-color: var(--bg);
-    filter: blur(100px);
-    opacity: 0.5;
+    background: radial-gradient(circle at 30% 30%, #0a151a 0%, var(--bg) 100%);
 }
 
-.blob {
+.plexus-svg {
+    width: 100%; height: 100%;
+    opacity: 0.15;
+    transform: scale(1.1);
+}
+
+.neural-engine {
+    animation: worldFloat 50s infinite linear;
+    transform-origin: center;
+}
+
+.wire {
+    fill: none;
+    stroke: var(--tech-cyan);
+    stroke-width: 0.4;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: draw 15s infinite alternate ease-in-out;
+}
+
+.pulse-line {
+    stroke: url(#glowGrad);
+    stroke-width: 1;
+    animation: blink 10s infinite ease-in-out;
+}
+
+.node-field .node {
     position: absolute;
+    width: 2px; height: 2px;
+    background: var(--tech-cyan);
     border-radius: 50%;
-    animation: move 20s infinite alternate ease-in-out;
+    animation: float 20s infinite ease-in-out;
 }
 
-.warm {
-    width: 70vw; height: 70vh;
-    background: radial-gradient(circle, var(--warm-red) 0%, transparent 70%);
-    top: -10%; left: -10%;
-    opacity: 0.4;
+.n1 { top: 20%; left: 20%; }
+.n2 { top: 70%; left: 60%; animation-delay: -2s; }
+.n3 { top: 15%; left: 80%; animation-delay: -5s; }
+.n4 { top: 40%; left: 30%; animation-delay: -1s; }
+.n5 { top: 85%; left: 15%; animation-delay: -8s; }
+
+@keyframes worldFloat {
+    from { transform: rotate(0deg) scale(1.1); }
+    to { transform: rotate(360deg) scale(1.1); }
 }
 
-.tech {
-    width: 60vw; height: 60vh;
-    background: radial-gradient(circle, var(--tech-cyan) 0%, transparent 70%);
-    bottom: -5%; right: -5%;
-    animation-delay: -7s;
-    opacity: 0.3;
+@keyframes draw {
+    0% { stroke-dashoffset: 600; opacity: 0; }
+    50% { stroke-dashoffset: 0; opacity: 0.15; }
+    100% { stroke-dashoffset: -600; opacity: 0; }
 }
 
-@keyframes move {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(15vw, 10vh) scale(1.1); }
-}
+@keyframes blink { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.2; } }
 
-.grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(rgba(65, 234, 212, 0.05) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(65, 234, 212, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: 1;
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); opacity: 0.1; }
+    50% { transform: translate(30px, -30px); opacity: 0.4; }
 }
 
 /* --- Layout --- */
@@ -68,60 +91,60 @@ body {
 
 nav { padding: 40px 0; }
 .logo { 
-    font-family: var(--font-dos); 
-    font-size: 24px; 
+    font-family: var(--font-mono); 
+    font-weight: 300; 
+    text-transform: uppercase; 
+    letter-spacing: 4px; 
+    font-size: 13px; 
     color: var(--tech-cyan); 
-    letter-spacing: 2px;
 }
 
-.hero { padding: 60px 0 40px; }
+.hero { padding: 80px 0 60px; }
 h1 { 
-    font-size: clamp(2.5rem, 8vw, 6rem); 
+    font-family: var(--font-header); /* Beholder den tynne Urbanist her for "looken" */
+    font-size: clamp(2.5rem, 8vw, 6.5rem); 
     font-weight: 200; 
     letter-spacing: -3px; 
     line-height: 0.9; 
     text-transform: uppercase; 
-    margin-bottom: 50px;
+    margin-bottom: 50px; 
 }
 
-/* Service strip: DOS-font, små bokstaver, cyan farge */
 .service-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
-    font-family: var(--font-dos);
-    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+    gap: 30px;
+    font-family: var(--font-mono);
+    font-size: clamp(0.9rem, 2.1vw, 1.7rem);
     color: var(--tech-cyan);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 25px;
+    border-top: 1px solid var(--border);
+    padding-top: 30px;
 }
 
-.content-block { padding: 80px 0; max-width: 950px; }
+.manifesto { padding: 60px 0; max-width: 950px; }
 .leading { 
     font-size: clamp(1.8rem, 4.5vw, 3.2rem); 
-    font-weight: 400; 
-    line-height: 1.1; 
+    font-weight: 300; /* Noto Serif ser best ut tynn */
+    font-style: italic; /* Kursiv gir en eksklusiv følelse på Serif */
+    line-height: 1.2; 
     margin-bottom: 40px; 
-    color: #fff;
-    border-left: 3px solid var(--warm-red); /* Varm rød aksent-linje */
+    border-left: 2px solid var(--warm-red);
     padding-left: 30px;
 }
 .supporting { 
-    font-size: 1.15rem; 
+    font-size: 1.2rem; 
     font-weight: 300; 
     color: var(--text-dim); 
-    line-height: 1.6; 
-    padding-left: 33px;
+    line-height: 1.7; 
+    padding-left: 32px; 
 }
 
-/* Footer: Kontakt-tekst */
 footer { padding: 60px 0 100px; border-top: 1px solid rgba(255,255,255,0.05); }
-.contact-text { font-family: var(--font-dos); font-size: 1.4rem; color: var(--text-dim); }
+.contact-text { font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-dim); }
 .email { color: var(--warm-red); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
 .email:hover { border-bottom: 1px solid var(--warm-red); }
 
 @media (max-width: 900px) {
-    .service-strip { flex-direction: column; gap: 10px; }
+    .service-strip { flex-direction: column; gap: 15px; }
     .leading { padding-left: 20px; }
-    .supporting { padding-left: 23px; }
 }
