@@ -1,225 +1,76 @@
-/* --- Marathon-inspirert fargepalett --- */
 :root {
-    --bg-color: #060b0e;        /* Veldig mørk blågrønn/sort */
-    --text-color: #ddd;         /* Lys grå for hovedtekst */
-    --accent-color: #ccff00;    /* Den "giftige" neongule/grønne */
-    --secondary-accent: #00f2ff; /* Cyan for kontrast */
-    --warning-color: #ff3300;   /* Rød for advarsler */
-    
-    --terminal-font: 'Share Tech Mono', monospace;
-    --border-style: 2px solid var(--accent-color);
+    --bg-dark: #050505;
+    --accent: #dfff00; /* Den neongule fra forrige, fungerer bra mot metall */
+    --ui-line: rgba(255, 255, 255, 0.1);
+    --text-main: #efefef;
+    --text-dim: #888;
 }
 
-/* --- Grunnleggende oppsett --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: var(--terminal-font);
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.4;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
 }
 
-/* --- Scanlines / CRT Effekt --- */
-.scanlines {
+/* --- Bakgrunnseffekter --- */
+.visual-bg {
     position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.05) 50%
-    );
-    background-size: 100% 4px;
-    z-index: 100;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('hero-bg.jpg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.4;
+    filter: saturate(0.5) brightness(0.8);
+    z-index: -2;
+}
+
+.overlay-grid {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(var(--ui-line) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--ui-line) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -1;
     pointer-events: none;
-    opacity: 0.6;
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+.container { width: 90%; max-width: 1300px; margin: 0 auto; }
 
-/* --- Navigasjon --- */
-nav {
-    padding: 20px 0;
-    border-bottom: var(--border-style);
-    background-color: rgba(6,11,14,0.9);
-}
+/* --- UI Elementer --- */
+.ui-border-bottom { border-bottom: 1px solid var(--ui-line); }
+.ui-border-top { border-top: 1px solid var(--ui-line); }
 
-.nav-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+nav { padding: 20px 0; font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 2px; }
+.nav-container { display: flex; justify-content: space-between; }
 
-.logo {
-    font-size: 1.5rem;
-    color: var(--accent-color);
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
+/* --- Hero --- */
+.hero { padding: 150px 0 100px; }
+.id-tag { font-family: 'Share Tech Mono', monospace; color: var(--accent); font-size: 14px; }
+h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; text-transform: uppercase; line-height: 0.9; margin-top: 10px; }
 
-.logo span.cursor {
-    animation: blink 1s infinite;
-}
+.ui-row { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 50px; border-top: 1px solid var(--accent); padding-top: 10px; font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--accent); }
 
-.status-badge {
-    color: var(--secondary-accent);
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-}
-
-/* --- Hero Seksjon --- */
-.hero {
-    padding: 60px 0;
-    border-bottom: var(--border-style);
-}
-
-.hero-content {
-    background: linear-gradient(to right, rgba(204,255,0,0.05), transparent);
-    padding: 40px;
-    border-left: 5px solid var(--accent-color);
-}
-
-.warning-line {
-    color: var(--warning-color);
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-}
-
-h1 {
-    font-size: clamp(2rem, 6vw, 4rem);
-    text-transform: uppercase;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 15px;
-}
-
-.tagline {
-    font-size: 0.9rem;
-    color: var(--secondary-accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* --- Innhold / Manifesto --- */
-.manifesto {
-    padding: 60px 0;
-}
-
-.text-block {
-    margin-bottom: 40px;
-}
-
-.main-philosophy p {
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
-    line-height: 1.3;
-    color: #fff;
-    margin-bottom: 60px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-
-.secondary-philosophy h2 {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    color: var(--secondary-accent);
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-}
-
-.secondary-philosophy p {
-    color: var(--text-color);
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-.highlight {
-    background-color: rgba(204,255,0,0.05);
-    padding: 30px;
-    border: var(--border-style);
-    font-size: 1.2rem;
-    color: #fff;
-}
-
-.highlight strong {
-    color: var(--accent-color);
-    background-color: rgba(204,255,0,0.2);
-    padding: 0 4px;
-}
+/* --- Innhold --- */
+.content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 100px; padding: 100px 0; }
+.main-text { font-size: 2rem; font-weight: 300; line-height: 1.2; }
+.technical-info { font-family: 'Share Tech Mono', monospace; font-size: 14px; color: var(--text-dim); border-left: 1px solid var(--accent); padding-left: 20px; }
 
 /* --- Footer --- */
-footer {
-    padding: 60px 0;
-    background-color: rgba(6,11,14,0.9);
-    border-top: var(--border-style);
-}
+footer { padding: 50px 0; margin-top: 100px; }
+.footer-grid { display: flex; justify-content: space-between; align-items: flex-end; padding-top: 30px; }
+.email { display: block; font-size: 3rem; color: #fff; text-decoration: none; font-weight: 700; }
+.email:hover { color: var(--accent); }
 
-.footer-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.footer-label {
-    font-size: 0.8rem;
-    color: var(--text-color);
+.barcode {
+    width: 200px; height: 40px;
+    background: repeating-linear-gradient(90deg, #fff, #fff 2px, transparent 2px, transparent 4px);
     margin-bottom: 10px;
 }
+.barcode-area p { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); }
 
-.contact-link {
-    font-size: clamp(1.5rem, 5vw, 2.2rem);
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    display: inline-block;
-}
-
-.contact-link:hover {
-    color: #fff;
-    text-shadow: 0 0 10px var(--accent-color);
-}
-
-.footer-meta p {
-    font-size: 0.7rem;
-    color: var(--secondary-accent);
-    text-align: right;
-    margin-bottom: 5px;
-}
-
-/* --- Animasjoner --- */
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-/* --- Mobil-tilpasning --- */
-@media (max-width: 800px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-wrapper {
-        flex-direction: column;
-        gap: 30px;
-    }
-    
-    .footer-meta p {
-        text-align: left;
-    }
+@media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; gap: 50px; }
+    .ui-row { grid-template-columns: 1fr 1fr; }
 }
