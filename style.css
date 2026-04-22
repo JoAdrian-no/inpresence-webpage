@@ -1,133 +1,143 @@
 :root {
-    --bg: #040607;
-    --accent: #2ac7ff;
-    --text: #ffffff;
-    --text-muted: rgba(255, 255, 255, 0.5);
-    --border: rgba(255, 255, 255, 0.08);
-    --font-main: 'Urbanist', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --bg: #020405;
+    --accent: #00d2ff;
+    --accent-dim: rgba(0, 210, 255, 0.2);
+    --text: #f0f0f0;
+    --text-dim: rgba(240, 240, 240, 0.4);
+    --mono: 'JetBrains Mono', monospace;
+    --main: 'Urbanist', sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: var(--font-main);
-    line-height: 1.5;
+    font-family: var(--main);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* --- Kompleks Geometrisk Bakgrunn --- */
-.plexus-container {
+/* --- Det visuelle "Engine" laget --- */
+.tech-canvas {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: -2;
-    perspective: 1000px;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 50%, #050d12 0%, var(--bg) 100%);
 }
 
-.plexus-layer {
+.grid-overlay {
     position: absolute;
-    width: 100%; height: 100%;
+    inset: 0;
+    background-image: linear-gradient(var(--accent-dim) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--accent-dim) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.1;
+    mask-image: radial-gradient(circle, black, transparent 80%);
 }
 
-.shape {
-    fill: transparent;
-    stroke: var(--accent);
-    stroke-width: 0.1;
-    opacity: 0.15;
-    animation: shapeMorph 15s infinite ease-in-out;
+.plexus-svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    transform: scale(1.1);
+}
+
+.geometry-engine {
+    animation: sceneFloat 30s infinite ease-in-out;
     transform-origin: center;
 }
 
-.s1 { animation-delay: 0s; }
-.s2 { animation-delay: -5s; stroke-dasharray: 2 1; }
-.s3 { animation-delay: -10s; opacity: 0.1; }
-
-@keyframes shapeMorph {
-    0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 0.1; }
-    33% { transform: translate(5%, 5%) rotate(120deg) scale(1.2); opacity: 0.2; }
-    66% { transform: translate(-2%, 8%) rotate(240deg) scale(0.9); opacity: 0.15; }
-    100% { transform: translate(0,0) rotate(360deg) scale(1); opacity: 0.1; }
+.wireframe {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 0.5;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawStroke 15s infinite alternate ease-in-out;
+    filter: url(#glow);
 }
 
-/* Linjer og noder */
-.line-net .line {
-    position: absolute;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    height: 1px;
-    opacity: 0.1;
-    animation: lineFloat 10s infinite linear;
+.pulse-node {
+    fill: var(--accent);
+    filter: url(#glow);
+    animation: nodePulse 4s infinite alternate;
 }
 
-.l1 { width: 40%; top: 20%; left: 10%; transform: rotate(15deg); }
-.l2 { width: 30%; top: 60%; left: 50%; transform: rotate(-20deg); animation-delay: -2s; }
-.l3 { width: 50%; top: 40%; left: -10%; transform: rotate(45deg); animation-duration: 18s; }
-.l4 { width: 1px; height: 40%; top: 10%; left: 30%; background: var(--accent); opacity: 0.05; }
-
-.dot {
-    position: absolute;
-    width: 3px; height: 3px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 15px var(--accent);
-    animation: pulse 4s infinite ease-in-out;
+/* --- Animasjoner --- */
+@keyframes sceneFloat {
+    0%, 100% { transform: translate(0,0) rotate(0deg) scale(1); }
+    50% { transform: translate(-20px, 20px) rotate(2deg) scale(1.05); }
 }
 
-.d1 { top: 20%; left: 10%; }
-.d2 { top: 60%; left: 50%; animation-delay: 1s; }
-.d3 { top: 40%; left: 25%; animation-delay: 2s; }
-.d4 { top: 80%; left: 80%; }
-
-@keyframes lineFloat {
-    0% { transform: translate(0,0) rotate(var(--rot, 15deg)); opacity: 0.05; }
-    50% { transform: translate(20px, -20px) rotate(calc(var(--rot, 15deg) + 5deg)); opacity: 0.15; }
-    100% { transform: translate(0,0) rotate(var(--rot, 15deg)); opacity: 0.05; }
+@keyframes drawStroke {
+    0% { stroke-dashoffset: 400; opacity: 0; }
+    50% { stroke-dashoffset: 0; opacity: 0.4; }
+    100% { stroke-dashoffset: -400; opacity: 0; }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.2; }
-    50% { transform: scale(2.5); opacity: 0.6; }
+@keyframes nodePulse {
+    0% { opacity: 0.2; r: 1px; }
+    100% { opacity: 1; r: 3px; }
 }
 
-.soft-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 15% 30%, rgba(42, 199, 255, 0.05) 0%, transparent 70%),
-                linear-gradient(to bottom, transparent 50%, var(--bg) 95%);
-    z-index: -1;
-}
-
-/* --- Layout og Typografi --- */
-.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+/* --- Typografi & Layout --- */
+.container { width: 90%; max-width: 1400px; margin: 0 auto; }
 
 nav { padding: 40px 0; }
-.logo-text { font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--accent); display: inline-block; padding-bottom: 3px; }
+.logo { display: flex; flex-direction: column; }
+.logo-main { font-weight: 600; letter-spacing: 4px; text-transform: uppercase; font-size: 14px; color: var(--accent); }
+.logo-sub { font-family: var(--mono); font-size: 8px; color: var(--text-dim); }
 
-.hero { padding: 80px 0 60px; }
-h1 { font-size: clamp(2rem, 8vw, 6rem); font-weight: 300; letter-spacing: -2px; line-height: 1; margin-bottom: 40px; text-transform: uppercase; color: #fff; }
+.hero { padding: 60px 0; }
+h1 {
+    font-size: clamp(2.5rem, 10vw, 7rem);
+    font-weight: 200;
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -4px;
+    margin-bottom: 60px;
+    background: linear-gradient(180deg, #fff 0%, var(--text-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 .service-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
-    font-family: var(--font-mono);
-    font-size: clamp(0.9rem, 2.5vw, 2rem);
-    color: var(--accent);
-    border-top: 1px solid var(--border);
-    padding-top: 25px;
+    gap: 40px;
+    border-top: 1px solid var(--accent-dim);
+    padding-top: 30px;
 }
 
-.manifesto-grid { padding: 50px 0; }
-.main-statement p { font-size: clamp(1.4rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.1; color: #fff; margin-bottom: 40px; }
+.service-item {
+    font-family: var(--mono);
+    font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-.details-row { display: grid; grid-template-columns: 1.3fr; gap: 40px; }
-.text-column p { font-size: 1.25rem; color: var(--text-muted); font-weight: 300; }
+.service-item .num { font-size: 0.6em; opacity: 0.5; border: 1px solid var(--accent); padding: 2px 5px; border-radius: 3px; }
 
-footer { padding: 60px 0; border-top: 1px solid var(--border); margin-top: 60px; }
-.contact-email { font-size: 1rem; font-weight: 600; text-decoration: none; color: #fff; transition: 0.3s ease; }
-.contact-email:hover { color: var(--accent); }
+.content-architecture { padding: 80px 0; max-width: 900px; }
+.leading { font-size: clamp(1.5rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.1; margin-bottom: 40px; }
+.supporting { font-size: 1.1rem; font-weight: 300; color: var(--text-dim); line-height: 1.6; }
+
+footer { padding: 60px 0 100px; }
+.footer-line { width: 100%; height: 1px; background: var(--accent-dim); margin-bottom: 30px; }
+.email-link { 
+    font-family: var(--mono); 
+    color: var(--text-dim); 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+.email-link:hover { color: var(--accent); }
 
 @media (max-width: 900px) {
-    .service-strip { flex-direction: column; gap: 10px; font-size: 1.2rem; }
+    .service-strip { gap: 20px; }
+    h1 { letter-spacing: -2px; }
 }

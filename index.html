@@ -3,67 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InPresence</title>
+    <title>InPresence | Immersive Expertise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;600&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;400;600&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="plexus-container">
-        <svg class="plexus-layer" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <polygon class="shape s1" points="10,10 30,10 20,30" />
-            <polygon class="shape s2" points="70,40 90,50 80,70" />
-            <polygon class="shape s3" points="20,70 40,80 30,95" />
+    <div class="tech-canvas">
+        <div class="grid-overlay"></div>
+        <svg class="plexus-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMin slice">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <g class="geometry-engine">
+                <path class="wireframe p1" d="M100,200 L400,150 L300,500 Z" />
+                <path class="wireframe p2" d="M600,800 L900,700 L750,950 Z" />
+                <path class="wireframe p3" d="M800,100 L950,300 L650,250 Z" />
+                <circle class="pulse-node" cx="400" cy="150" r="1.5" />
+                <circle class="pulse-node" cx="750" cy="950" r="1.5" />
+            </g>
         </svg>
-        <div class="line-net">
-            <div class="line l1"></div><div class="line l2"></div>
-            <div class="line l3"></div><div class="line l4"></div>
-            <div class="line l5"></div><div class="line l6"></div>
-        </div>
-        <div class="nodes">
-            <div class="dot d1"></div><div class="dot d2"></div>
-            <div class="dot d3"></div><div class="dot d4"></div>
-            <div class="dot d5"></div>
-        </div>
     </div>
-    
-    <div class="soft-overlay"></div>
 
     <nav>
-        <div class="container">
-            <div class="logo-text">InPresence</div>
+        <div class="container nav-flex">
+            <div class="logo">
+                <span class="logo-main">InPresence</span>
+                <span class="logo-sub">SYSTEM_v3.0</span>
+            </div>
         </div>
     </nav>
 
     <header class="hero container">
-        <h1>Kom nærmere ditt publikum</h1>
+        <h1 class="reveal-text">Kom nærmere ditt publikum</h1>
         <div class="service-strip">
-            <span>01. INNSIKT</span>
-            <span>02. KONSEPTURVIKLING</span>
-            <span>03. FINANSISERING</span>
-            <span>04. PROSJETLEDELSE</span>
-            <span>05. UTVIKLING</span>
+            <div class="service-item"><span class="num">01</span> INNSIKT</div>
+            <div class="service-item"><span class="num">02</span> KONSEPTUTVIKLING</div>
+            <div class="service-item"><span class="num">03</span> FINANSIERING</div>
+            <div class="service-item"><span class="num">04</span> PROSJEKTLEDELSE</div>
+            <div class="service-item"><span class="num">05</span> UTVIKLING</div>
         </div>
     </header>
 
     <main class="container">
-        <section class="manifesto-grid">
-            <div class="main-statement">
-                <p>InPresence muliggjør transformative opplevelser ved å kombinere strategisk innsikt og innovativ bruk av teknologi.</p>
-            </div>
-            <div class="details-row">
-                <div class="text-column">
-                    <p>Gjennom en komplett prosess som strekker seg fra Innsikt og Konseptutvikling til Finansisering, Prosjektledelse og Utvikling, hjelper vi deg å utvikle prosjekter fra start til ferdigstillelse.</p>
-                </div>
-            </div>
-        </section>
+        <div class="content-architecture">
+            <section class="manifesto">
+                <p class="leading">InPresence muliggjør transformative opplevelser ved å kombinere strategisk innsikt og innovativ bruk av teknologi.</p>
+                <p class="supporting">Gjennom en komplett prosess som strekker seg fra Innsikt og Konseptutvikling til Finansiering, Prosjektledelse og Utvikling, hjelper vi deg å utvikle prosjekter fra start til ferdigstillelse.</p>
+            </section>
+        </div>
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <a href="mailto:post@inpresence.no" class="contact-email">post@inpresence.no</a>
-        </div>
+    <footer class="container">
+        <div class="footer-line"></div>
+        <a href="mailto:post@inpresence.no" class="email-link">post@inpresence.no</a>
     </footer>
 
 </body>
