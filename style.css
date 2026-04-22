@@ -1,198 +1,60 @@
 /* --- Grunnleggende oppsett --- */
-
-{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
---bg-color: #0a0a0c;
---text-color: #e0e0e0;
---accent-color: #00f2ff; /* Futuristisk cyan */
---secondary-color: #6d6d75;
---glass-bg: rgba(255, 255, 255, 0.03);
+    --bg-color: #0a0a0c;
+    --text-color: #e0e0e0;
+    --accent-color: #00f2ff;
+    --secondary-color: #6d6d75;
+    --glass-bg: rgba(255, 255, 255, 0.03);
 }
 
 body {
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-background-color: var(--bg-color);
-color: var(--text-color);
-line-height: 1.6;
-overflow-x: hidden;
--webkit-font-smoothing: antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* --- Bakgrunnseffekt --- */
 .background-glow {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-background: radial-gradient(circle at 50% -20%, #1a2a3a 0%, transparent 50%);
-z-index: -1;
-pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% -20%, #1a2a3a 0%, transparent 50%);
+    z-index: -1;
 }
 
 .container {
-width: 90%;
-max-width: 1100px;
-margin: 0 auto;
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-/* --- Navigasjon --- */
-nav {
-padding: 40px 0;
-}
+nav { padding: 40px 0; }
+.logo { font-weight: 800; font-size: 1.4rem; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
+.logo span { color: var(--accent-color); font-weight: 300; }
 
-.logo {
-font-weight: 800;
-font-size: 1.4rem;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: #fff;
-}
+.hero { padding: 80px 0; text-align: center; }
+.badge { display: inline-block; padding: 6px 16px; background: var(--glass-bg); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-color); margin-bottom: 24px; }
 
-.logo span {
-color: var(--accent-color);
-font-weight: 300;
-}
+h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 700; margin-bottom: 24px; letter-spacing: -2px; background: linear-gradient(to bottom, #fff 60%, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-/* --- Hero Seksjon --- */
-.hero {
-padding: 80px 0;
-text-align: center;
-}
+.services { font-family: monospace; font-size: 0.85rem; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 3px; }
 
-.badge {
-display: inline-block;
-padding: 6px 16px;
-background: var(--glass-bg);
-border: 1px solid rgba(0, 242, 255, 0.2);
-border-radius: 100px;
-font-size: 0.75rem;
-text-transform: uppercase;
-letter-spacing: 2px;
-color: var(--accent-color);
-margin-bottom: 24px;
-}
+.manifesto { padding: 60px 0; }
+.main-philosophy { font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 300; border-left: 2px solid var(--accent-color); padding-left: 30px; margin-bottom: 60px; color: #fff; }
 
-h1 {
-font-size: clamp(2.5rem, 8vw, 4.5rem);
-font-weight: 700;
-line-height: 1.1;
-margin-bottom: 24px;
-letter-spacing: -2px;
-background: linear-gradient(to bottom, #fff 60%, #666);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-}
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.secondary-philosophy h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--accent-color); margin-bottom: 15px; }
+.highlight { background: var(--glass-bg); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
 
-.services {
-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-font-size: 0.85rem;
-color: var(--secondary-color);
-text-transform: uppercase;
-letter-spacing: 3px;
-}
-
-/* --- Innhold --- */
-.manifesto {
-padding: 60px 0;
-}
-
-.text-block {
-margin-bottom: 40px;
-}
-
-.main-philosophy {
-font-size: clamp(1.4rem, 4vw, 1.8rem);
-font-weight: 300;
-line-height: 1.5;
-color: #fff;
-margin-bottom: 80px;
-border-left: 2px solid var(--accent-color);
-padding-left: 30px;
-}
-
-.grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 60px;
-align-items: start;
-}
-
-.secondary-philosophy h3 {
-font-size: 0.8rem;
-text-transform: uppercase;
-color: var(--accent-color);
-margin-bottom: 15px;
-letter-spacing: 1.5px;
-}
-
-.secondary-philosophy p {
-color: var(--secondary-color);
-font-size: 1.1rem;
-}
-
-.highlight {
-background: var(--glass-bg);
-padding: 40px;
-border-radius: 20px;
-border: 1px solid rgba(255,255,255,0.05);
-font-size: 1.2rem;
-}
-
-.highlight strong {
-color: #fff;
-border-bottom: 1px solid var(--accent-color);
-}
-
-/* --- Footer --- */
-footer {
-padding: 100px 0 60px;
-text-align: center;
-}
-
-.footer-label {
-font-size: 0.9rem;
-color: var(--secondary-color);
-margin-bottom: 10px;
-}
-
-.contact-button {
-font-size: clamp(1.5rem, 5vw, 2.5rem);
-color: #fff;
-text-decoration: none;
-font-weight: 200;
-transition: all 0.4s ease;
-display: inline-block;
-}
-
-.contact-button:hover {
-color: var(--accent-color);
-transform: translateY(-5px);
-}
-
-.footer-meta {
-margin-top: 80px;
-font-size: 0.7rem;
-color: #444;
-text-transform: uppercase;
-letter-spacing: 2px;
-}
-
-/* --- Mobil-tilpasning --- */
-@media (max-width: 800px) {
-.grid {
-grid-template-columns: 1fr;
-gap: 40px;
-}
-
-.main-philosophy {
-    padding-left: 20px;
-}
-
-
-}
+footer { padding: 100px 0 60px; text-align: center; }
+.contact-button { font-size: clamp(1.5rem, 5vw, 2.5rem); color: #fff; text-decoration: none; transition: 0.4s; }
+.contact-button:hover { color: var(--accent-color); }
