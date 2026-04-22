@@ -1,6 +1,6 @@
 :root {
     --bg: #080a0b;
-    --accent: #e2ff31; /* Mykere lime-gull */
+    --accent: #e2ff31;
     --text: #ffffff;
     --text-muted: rgba(255, 255, 255, 0.6);
     --glass: rgba(255, 255, 255, 0.03);
@@ -19,88 +19,69 @@ body {
     overflow-x: hidden;
 }
 
-/* --- Bakgrunn --- */
 .background-canvas {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: url('hero-bg.jpg') no-repeat center center;
     background-size: cover;
     z-index: -2;
-    filter: brightness(0.4) contrast(1.1);
+    filter: brightness(0.3) contrast(1.2);
 }
 
 .soft-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, transparent 20%, var(--bg) 100%);
+    background: radial-gradient(circle at 50% 50%, transparent 10%, var(--bg) 90%);
     z-index: -1;
-    opacity: 0.8;
 }
 
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 
-/* --- Nav --- */
 nav { padding: 40px 0; }
-.nav-inner { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-.logo-group { display: flex; align-items: center; gap: 10px; }
-.logo-dot { width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
-.logo-text { font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; }
-.system-status { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
+.logo-text { font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; border-bottom: 1px solid var(--accent); display: inline-block; padding-bottom: 5px; }
 
-/* --- Hero --- */
-.hero { padding: 120px 0 80px; }
-h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 300; letter-spacing: -2px; line-height: 0.95; margin-bottom: 40px; }
+.hero { padding: 80px 0 60px; }
+h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 300; letter-spacing: -2px; line-height: 0.95; margin-bottom: 40px; text-transform: uppercase; }
 
 .service-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--accent);
     border-top: 1px solid var(--border);
-    padding-top: 20px;
+    padding-top: 25px;
 }
 
-/* --- Innhold --- */
-.manifesto-grid { padding: 60px 0; }
-
+.manifesto-grid { padding: 40px 0; }
 .glass-card {
     background: var(--glass);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border: 1px solid var(--border);
     padding: 60px;
-    border-radius: 4px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
-.main-statement p { font-size: clamp(1.5rem, 4vw, 2.8rem); font-weight: 300; line-height: 1.1; color: #fff; }
+.glass-card p { font-size: clamp(1.4rem, 4vw, 2.5rem); font-weight: 300; line-height: 1.15; }
 
-.details-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
-.text-column p { font-size: 1.1rem; color: var(--text-muted); }
+.details-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; }
+.text-column p { font-size: 1.15rem; color: var(--text-muted); font-weight: 300; }
 
 .outcome-box {
-    border-left: 2px solid var(--accent);
-    padding: 20px 30px;
-    background: linear-gradient(to right, rgba(226, 255, 49, 0.05), transparent);
+    border-left: 1px solid var(--accent);
+    padding: 20px 40px;
+    background: linear-gradient(to right, rgba(226, 255, 49, 0.03), transparent);
 }
 
-.outcome-box .label { font-family: var(--font-mono); font-size: 10px; color: var(--accent); display: block; margin-bottom: 10px; }
-.outcome-box p { font-size: 1.4rem; font-weight: 600; }
+.outcome-box p { font-size: 1.3rem; font-weight: 600; line-height: 1.3; }
 
-/* --- Footer --- */
-footer { padding: 100px 0 40px; border-top: 1px solid var(--border); }
-.contact-wrap { margin-bottom: 60px; }
-.mono-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent); display: block; margin-bottom: 15px; }
-.contact-email { font-size: clamp(2rem, 6vw, 4rem); font-weight: 600; text-decoration: none; color: #fff; transition: 0.3s ease; }
-.contact-email:hover { color: var(--accent); letter-spacing: 2px; }
+footer { padding: 100px 0 80px; border-top: 1px solid var(--border); margin-top: 60px; }
+.contact-email { font-size: clamp(1.8rem, 6vw, 3.5rem); font-weight: 600; text-decoration: none; color: #fff; transition: 0.4s ease; display: inline-block; }
+.contact-email:hover { color: var(--accent); }
 
-.footer-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
-.barcode-small { width: 120px; height: 20px; background: repeating-linear-gradient(90deg, #fff, #fff 1px, transparent 1px, transparent 3px); opacity: 0.3; }
-.copyright { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); }
-
-/* Mobil */
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .details-row { grid-template-columns: 1fr; gap: 40px; }
     .glass-card { padding: 30px; }
 }
