@@ -1,76 +1,106 @@
 :root {
-    --bg-dark: #050505;
-    --accent: #dfff00; /* Den neongule fra forrige, fungerer bra mot metall */
-    --ui-line: rgba(255, 255, 255, 0.1);
-    --text-main: #efefef;
-    --text-dim: #888;
+    --bg: #080a0b;
+    --accent: #e2ff31; /* Mykere lime-gull */
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.1);
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* --- Bakgrunnseffekter --- */
-.visual-bg {
+/* --- Bakgrunn --- */
+.background-canvas {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: url('hero-bg.jpg') no-repeat center center;
     background-size: cover;
-    opacity: 0.4;
-    filter: saturate(0.5) brightness(0.8);
     z-index: -2;
+    filter: brightness(0.4) contrast(1.1);
 }
 
-.overlay-grid {
+.soft-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: linear-gradient(var(--ui-line) 1px, transparent 1px),
-                      linear-gradient(90deg, var(--ui-line) 1px, transparent 1px);
-    background-size: 50px 50px;
+    background: radial-gradient(circle at 50% 50%, transparent 20%, var(--bg) 100%);
     z-index: -1;
-    pointer-events: none;
+    opacity: 0.8;
 }
 
-.container { width: 90%; max-width: 1300px; margin: 0 auto; }
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
 
-/* --- UI Elementer --- */
-.ui-border-bottom { border-bottom: 1px solid var(--ui-line); }
-.ui-border-top { border-top: 1px solid var(--ui-line); }
-
-nav { padding: 20px 0; font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 2px; }
-.nav-container { display: flex; justify-content: space-between; }
+/* --- Nav --- */
+nav { padding: 40px 0; }
+.nav-inner { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+.logo-group { display: flex; align-items: center; gap: 10px; }
+.logo-dot { width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+.logo-text { font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; }
+.system-status { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
 
 /* --- Hero --- */
-.hero { padding: 150px 0 100px; }
-.id-tag { font-family: 'Share Tech Mono', monospace; color: var(--accent); font-size: 14px; }
-h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; text-transform: uppercase; line-height: 0.9; margin-top: 10px; }
+.hero { padding: 120px 0 80px; }
+h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 300; letter-spacing: -2px; line-height: 0.95; margin-bottom: 40px; }
 
-.ui-row { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 50px; border-top: 1px solid var(--accent); padding-top: 10px; font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--accent); }
+.service-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+}
 
 /* --- Innhold --- */
-.content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 100px; padding: 100px 0; }
-.main-text { font-size: 2rem; font-weight: 300; line-height: 1.2; }
-.technical-info { font-family: 'Share Tech Mono', monospace; font-size: 14px; color: var(--text-dim); border-left: 1px solid var(--accent); padding-left: 20px; }
+.manifesto-grid { padding: 60px 0; }
+
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    padding: 60px;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}
+
+.main-statement p { font-size: clamp(1.5rem, 4vw, 2.8rem); font-weight: 300; line-height: 1.1; color: #fff; }
+
+.details-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
+.text-column p { font-size: 1.1rem; color: var(--text-muted); }
+
+.outcome-box {
+    border-left: 2px solid var(--accent);
+    padding: 20px 30px;
+    background: linear-gradient(to right, rgba(226, 255, 49, 0.05), transparent);
+}
+
+.outcome-box .label { font-family: var(--font-mono); font-size: 10px; color: var(--accent); display: block; margin-bottom: 10px; }
+.outcome-box p { font-size: 1.4rem; font-weight: 600; }
 
 /* --- Footer --- */
-footer { padding: 50px 0; margin-top: 100px; }
-.footer-grid { display: flex; justify-content: space-between; align-items: flex-end; padding-top: 30px; }
-.email { display: block; font-size: 3rem; color: #fff; text-decoration: none; font-weight: 700; }
-.email:hover { color: var(--accent); }
+footer { padding: 100px 0 40px; border-top: 1px solid var(--border); }
+.contact-wrap { margin-bottom: 60px; }
+.mono-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent); display: block; margin-bottom: 15px; }
+.contact-email { font-size: clamp(2rem, 6vw, 4rem); font-weight: 600; text-decoration: none; color: #fff; transition: 0.3s ease; }
+.contact-email:hover { color: var(--accent); letter-spacing: 2px; }
 
-.barcode {
-    width: 200px; height: 40px;
-    background: repeating-linear-gradient(90deg, #fff, #fff 2px, transparent 2px, transparent 4px);
-    margin-bottom: 10px;
-}
-.barcode-area p { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+.barcode-small { width: 120px; height: 20px; background: repeating-linear-gradient(90deg, #fff, #fff 1px, transparent 1px, transparent 3px); opacity: 0.3; }
+.copyright { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); }
 
-@media (max-width: 900px) {
-    .content-grid { grid-template-columns: 1fr; gap: 50px; }
-    .ui-row { grid-template-columns: 1fr 1fr; }
+/* Mobil */
+@media (max-width: 800px) {
+    .details-row { grid-template-columns: 1fr; gap: 40px; }
+    .glass-card { padding: 30px; }
 }
