@@ -1,9 +1,11 @@
 :root {
     --bg: #05070a;
-    --accent: #00d2ff;
-    --secondary: #2a5cff;
+    --warm-red: #FF6B6B;  /* Varmen i nærværet */
+    --tech-cyan: #41EAD4;  /* Den tekniske presisjonen */
     --text: #ffffff;
-    --text-dim: rgba(255, 255, 255, 0.4);
+    --text-dim: rgba(255, 255, 255, 0.5);
+    --font-dos: 'VT323', monospace; /* DOS-inspirert font */
+    --font-clean: 'Urbanist', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,66 +13,53 @@
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: 'Urbanist', sans-serif;
+    font-family: var(--font-clean);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- Shader-inspirert Bakgrunn --- */
+/* --- Shader Bakgrunn med de nye fargene --- */
 .shader-background {
     position: fixed;
     inset: 0;
     z-index: -2;
     background-color: var(--bg);
-    filter: blur(80px); /* Skaper den flytende shader-effekten */
-    opacity: 0.6;
+    filter: blur(100px);
+    opacity: 0.5;
 }
 
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(40px);
-    animation: move 25s infinite alternate ease-in-out;
+    animation: move 20s infinite alternate ease-in-out;
 }
 
-.b1 {
-    width: 60vw; height: 60vw;
-    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+.warm {
+    width: 70vw; height: 70vh;
+    background: radial-gradient(circle, var(--warm-red) 0%, transparent 70%);
     top: -10%; left: -10%;
     opacity: 0.4;
 }
 
-.b2 {
-    width: 50vw; height: 50vw;
-    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
-    bottom: -10%; right: -5%;
-    animation-duration: 30s;
-    animation-delay: -5s;
+.tech {
+    width: 60vw; height: 60vh;
+    background: radial-gradient(circle, var(--tech-cyan) 0%, transparent 70%);
+    bottom: -5%; right: -5%;
+    animation-delay: -7s;
     opacity: 0.3;
 }
 
-.b3 {
-    width: 40vw; height: 40vw;
-    background: radial-gradient(circle, #4a00ff 0%, transparent 70%);
-    top: 30%; left: 40%;
-    animation-duration: 20s;
-    animation-delay: -10s;
-    opacity: 0.2;
-}
-
 @keyframes move {
-    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-    50% { transform: translate(10vw, 15vh) scale(1.2) rotate(90deg); }
-    100% { transform: translate(-5vw, 5vh) scale(0.9) rotate(180deg); }
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(15vw, 10vh) scale(1.1); }
 }
 
 .grid-overlay {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    mask-image: radial-gradient(circle, black, transparent 80%);
+    background-image: linear-gradient(rgba(65, 234, 212, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(65, 234, 212, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
     z-index: 1;
 }
 
@@ -78,9 +67,14 @@ body {
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 
 nav { padding: 40px 0; }
-.logo { font-weight: 600; text-transform: uppercase; letter-spacing: 4px; font-size: 14px; color: var(--accent); }
+.logo { 
+    font-family: var(--font-dos); 
+    font-size: 24px; 
+    color: var(--tech-cyan); 
+    letter-spacing: 2px;
+}
 
-.hero { padding: 80px 0 40px; }
+.hero { padding: 60px 0 40px; }
 h1 { 
     font-size: clamp(2.5rem, 8vw, 6rem); 
     font-weight: 200; 
@@ -90,25 +84,44 @@ h1 {
     margin-bottom: 50px;
 }
 
+/* Service strip: DOS-font, små bokstaver, cyan farge */
 .service-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(0.9rem, 2.2vw, 1.8rem);
-    color: var(--accent);
+    gap: 25px;
+    font-family: var(--font-dos);
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+    color: var(--tech-cyan);
     border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 30px;
+    padding-top: 25px;
 }
 
-.content-block { padding: 60px 0; max-width: 900px; }
-.leading { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.1; margin-bottom: 40px; color: #fff; }
-.supporting { font-size: 1.1rem; font-weight: 300; color: var(--text-dim); line-height: 1.6; }
+.content-block { padding: 80px 0; max-width: 950px; }
+.leading { 
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem); 
+    font-weight: 400; 
+    line-height: 1.1; 
+    margin-bottom: 40px; 
+    color: #fff;
+    border-left: 3px solid var(--warm-red); /* Varm rød aksent-linje */
+    padding-left: 30px;
+}
+.supporting { 
+    font-size: 1.15rem; 
+    font-weight: 300; 
+    color: var(--text-dim); 
+    line-height: 1.6; 
+    padding-left: 33px;
+}
 
-footer { padding: 60px 0; }
-.email { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; text-decoration: none; color: var(--text-dim); }
-.email:hover { color: var(--accent); }
+/* Footer: Kontakt-tekst */
+footer { padding: 60px 0 100px; border-top: 1px solid rgba(255,255,255,0.05); }
+.contact-text { font-family: var(--font-dos); font-size: 1.4rem; color: var(--text-dim); }
+.email { color: var(--warm-red); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
+.email:hover { border-bottom: 1px solid var(--warm-red); }
 
 @media (max-width: 900px) {
-    .service-strip { flex-direction: column; gap: 15px; }
+    .service-strip { flex-direction: column; gap: 10px; }
+    .leading { padding-left: 20px; }
+    .supporting { padding-left: 23px; }
 }
