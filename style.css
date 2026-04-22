@@ -1,11 +1,11 @@
 :root {
-    --bg: #080a0b;
-    --accent: #e2ff31;
+    --bg: #06090a;              /* Dyp, mørk blågrå bakgrunn */
+    --accent: #2ac7ff;          /* Cyan fra det nye Plexus-bildet */
     --text: #ffffff;
     --text-muted: rgba(255, 255, 255, 0.6);
-    --glass: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.1);
-    --font-main: 'Plus Jakarta Sans', sans-serif;
+    --glass: rgba(255, 255, 255, 0.02);
+    --border: rgba(255, 255, 255, 0.08);
+    --font-main: 'Urbanist', sans-serif; /* Urbanist er ren og moderne */
     --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -15,85 +15,104 @@ body {
     background-color: var(--bg);
     color: var(--text);
     font-family: var(--font-main);
-    line-height: 1.6;
+    line-height: 1.5;
     overflow-x: hidden;
 }
 
-.background-canvas {
+/* --- Plexus Bakgrunnsanimasjon --- */
+.plexus-background {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: url('hero-bg.jpg') no-repeat center center;
-    background-size: cover;
+    top: 0; left: 0; width: 100vw; height: 100vh;
     z-index: -2;
-    filter: brightness(0.3) contrast(1.2);
+    overflow: hidden;
+}
+
+.line, .dot {
+    position: absolute;
+    background-color: var(--accent);
+    opacity: 0.15;
+    animation: plexusFlow 20s infinite ease-in-out;
+}
+
+/* Geometriske linjer som flyter og roterer */
+.l1 { width: 300px; height: 1px; top: 20vh; left: 10vw; transform: rotate(15deg); }
+.l2 { width: 1px; height: 350px; top: 15vh; left: 25vw; }
+.l3 { width: 250px; height: 1px; top: 45vh; left: 15vw; transform: rotate(-10deg); }
+
+/* Noder (punkter) */
+.dot { width: 4px; height: 4px; border-radius: 50%; opacity: 0.25; box-shadow: 0 0 10px var(--accent); }
+.d1 { top: 20vh; left: 10vw; }
+.d2 { top: 50vh; left: 28vw; }
+
+/* Animasjonslogikken for geometrisk "oppløsning" */
+@keyframes plexusFlow {
+    0% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+    25% { transform: translateY(-30px) rotate(10deg); opacity: 0.25; }
+    50% { transform: translateY(-5px) scale(1.1) rotate(-15deg); opacity: 0.15; }
+    75% { transform: translateY(20px) rotate(5deg); opacity: 0.2; }
+    100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
 }
 
 .soft-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, transparent 10%, var(--bg) 90%);
+    background: radial-gradient(circle at 15% 30%, rgba(42, 199, 255, 0.05) 0%, transparent 70%),
+                linear-gradient(to bottom, transparent 60%, var(--bg) 95%);
     z-index: -1;
 }
 
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 
-nav { padding: 40px 0; }
-.logo-text { font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; border-bottom: 1px solid var(--accent); display: inline-block; padding-bottom: 5px; }
+/* --- Nav --- */
+nav { padding: 30px 0; }
+.logo-text { font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--accent); display: inline-block; padding-bottom: 3px; }
 
-.hero { padding: 80px 0 60px; }
-
-h1 { 
-    font-size: clamp(2rem, 5vw, 8rem); /* Justerte verdiene ned her */
-    font-weight: 300; 
-    letter-spacing: -1px; 
-    line-height: 1.1; 
-    margin-bottom: 40px; 
-    text-transform: uppercase; 
-}
+/* --- Hero --- */
+.hero { padding: 100px 0 60px; }
+h1 { font-size: clamp(2rem, 8vw, 6rem); font-weight: 300; letter-spacing: -2px; line-height: 1; margin-bottom: 40px; text-transform: uppercase; color: #fff; }
 
 .service-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 20px;
     font-family: var(--font-mono);
-    font-size: 30px; /* Gjør teksten større */
+    font-size: 11px;
     color: var(--accent);
     border-top: 1px solid var(--border);
     padding-top: 25px;
-    letter-spacing: 1px; /* Gjør det litt lettere å lese når det er større */
 }
 
-.manifesto-grid { padding: 40px 0; }
+/* --- Innhold --- */
+.manifesto-grid { padding: 50px 0; }
 .glass-card {
     background: var(--glass);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     padding: 60px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
+.glass-card p { font-size: clamp(1.4rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.1; color: #fff; }
 
-.glass-card p { font-size: clamp(1.4rem, 4vw, 2.5rem); font-weight: 300; line-height: 1.15; }
-
-.details-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; }
-.text-column p { font-size: 1.15rem; color: var(--text-muted); font-weight: 300; }
+.details-row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; }
+.text-column p { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; }
 
 .outcome-box {
     border-left: 1px solid var(--accent);
     padding: 20px 40px;
-    background: linear-gradient(to right, rgba(226, 255, 49, 0.03), transparent);
+    background: linear-gradient(to right, rgba(42, 199, 255, 0.03), transparent);
 }
+.outcome-box p { font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
 
-.outcome-box p { font-size: 1.3rem; font-weight: 600; line-height: 1.3; }
-
+/* --- Footer --- */
 footer { padding: 100px 0 80px; border-top: 1px solid var(--border); margin-top: 60px; }
-.contact-email { font-size: clamp(0.2rem, 6vw, 1.2rem); font-weight: 600; text-decoration: none; color: #fff; transition: 0.4s ease; display: inline-block; }
-.contact-email:hover { color: var(--accent); }
+.contact-email { font-size: clamp(2rem, 6vw, 4rem); font-weight: 600; text-decoration: none; color: #fff; transition: 0.3s ease; display: inline-block; }
+.contact-email:hover { color: var(--accent); letter-spacing: 1px; }
 
+/* Mobil */
 @media (max-width: 900px) {
-    .service-strip {
-        flex-direction: column; /* Legger punktene under hverandre på mobil */
-        gap: 15px;
-        font-size: 14px; /* Litt mindre på mobil enn på PC */
-    }
+    .details-row { grid-template-columns: 1fr; gap: 40px; }
+    .glass-card { padding: 30px; }
+    h1 { margin-bottom: 30px; }
+    .service-strip { flex-direction: column; gap: 10px; font-size: 10px; }
 }
