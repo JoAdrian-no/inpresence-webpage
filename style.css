@@ -48,7 +48,7 @@ h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 300; letter-spacing: -2px
     flex-wrap: wrap;
     gap: 25px;
     font-family: var(--font-mono);
-    font-size: 16px;/* Gjør teksten større */
+    font-size: 30px; /* Gjør teksten større */
     color: var(--accent);
     border-top: 1px solid var(--border);
     padding-top: 25px;
