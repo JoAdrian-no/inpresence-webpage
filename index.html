@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InPresence | Humanized Technology</title>
+    <title>InPresence</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;400;600&family=Plus+Jakarta+Sans:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;400;600&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="viewport-3d">
-        <div class="neural-mask">
-            <div class="mask-core">
-                <div class="eye left"><div class="heart">♥</div></div>
-                <div class="eye right"><div class="core-node"></div></div>
-                <div class="connector c1"></div>
-                <div class="connector c2"></div>
-                <div class="connector c3"></div>
-            </div>
+    <div class="plexus-world">
+        <svg class="plexus-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--accent);stop-opacity:0" />
+                    <stop offset="50%" style="stop-color:var(--accent);stop-opacity:0.2" />
+                    <stop offset="100%" style="stop-color:var(--accent);stop-opacity:0" />
+                </linearGradient>
+            </defs>
+            <g class="neural-engine">
+                <path class="wire p1" d="M100,200 L400,150 L300,500 Z" />
+                <path class="wire p2" d="M600,800 L900,700 L750,950 Z" />
+                <path class="wire p3" d="M800,100 L950,300 L650,250 Z" />
+                <path class="wire p4" d="M50,800 L250,950 L400,750 Z" />
+                
+                <line class="pulse-line" x1="400" y1="150" x2="800" y2="100" />
+                <line class="pulse-line" x1="300" y1="500" x2="750" y2="950" />
+            </g>
+        </svg>
+        <div class="node-field">
+            <div class="node n1"></div><div class="node n2"></div>
+            <div class="node n3"></div><div class="node n4"></div>
+            <div class="node n5"></div>
         </div>
     </div>
-    
-    <div class="atmosphere"></div>
 
     <nav>
         <div class="container">
@@ -33,21 +45,19 @@
     <header class="hero container">
         <h1>Kom nærmere ditt publikum</h1>
         <div class="service-strip">
-            <div class="service-item">01. innsikt</div>
-            <div class="service-item">02. konseptutvikling</div>
-            <div class="service-item">03. prosjektledelse</div>
-            <div class="service-item">04. utvikling</div>
-            <div class="service-item">05. finansiering</div>
+            <span>01. INNSIKT</span>
+            <span>02. KONSEPTUTVIKLING</span>
+            <span>03. FINANSIERING</span>
+            <span>04. PROSJEKTLEDELSE</span>
+            <span>05. UTVIKLING</span>
         </div>
     </header>
 
     <main class="container">
-        <div class="content-architecture">
-            <section class="manifesto">
-                <p class="leading">I en tid hvor alle er fokusert på maskiner tror vi på tilstedeværelse og nærvær.</p>
-                <p class="supporting">Gjennom en komplett prosess som strekker seg fra start til ferdigstillelse.</p>
-            </section>
-        </div>
+        <section class="content-block">
+            <p class="leading">I en tid hvor alle er fokusert på maskiner tror vi på tilstedeværelse og nærvær.</p>
+            <p class="supporting">Gjennom en komplett prosess som strekker seg fra Innsikt og Konseptutvikling til Finansiering, Prosjektledelse og Utvikling, hjelper vi deg å utvikle prosjekter fra start til ferdigstillelse – med mennesket i sentrum av den teknologiske opplevelsen.</p>
+        </section>
     </main>
 
     <footer>
