@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="no">
 <head>
     <meta charset="UTF-8">
@@ -9,31 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="plexus-world">
-        <svg class="plexus-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-            <defs>
-                <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:var(--warm-red);stop-opacity:0" />
-                    <stop offset="50%" style="stop-color:var(--tech-cyan);stop-opacity:0.15" />
-                    <stop offset="100%" style="stop-color:var(--warm-red);stop-opacity:0" />
-                </linearGradient>
-            </defs>
-            <g class="neural-engine">
-                <path class="wire p1" d="M100,200 L400,150 L300,500 Z" />
-                <path class="wire p2" d="M600,800 L900,700 L750,950 Z" />
-                <path class="wire p3" d="M800,100 L950,300 L650,250 Z" />
-                <path class="wire p4" d="M50,800 L250,950 L400,750 Z" />
-                <line class="pulse-line" x1="400" y1="150" x2="800" y2="100" />
-                <line class="pulse-line" x1="300" y1="500" x2="750" y2="950" />
-            </g>
-        </svg>
-        <div class="node-field">
-            <div class="node n1"></div><div class="node n2"></div>
-            <div class="node n3"></div><div class="node n4"></div>
-            <div class="node n5"></div>
-        </div>
-    </div>
+    <div id="canvas-container"></div>
 
     <nav>
         <div class="container">
@@ -42,7 +18,7 @@
     </nav>
 
     <header class="hero container">
-        <h1>Kom nærmere ditt publikum</h1>
+        <h1>Kom nærmere publikum</h1>
         <div class="service-strip">
             <span>01. innsikt</span>
             <span>02. konsept</span>
@@ -50,20 +26,28 @@
             <span>04. prosjektledelse</span>
             <span>05. utvikling</span>
         </div>
+        <section class="manifesto">
+             <p class="supporting">InPresence skaper virtuelle verdener for genuine menneskelige møter. Ved å forene teknologisk forestillingsevne med kunstnerisk visjon, transformeres innovasjon til samfunnsnytte. Vi bruker teknologi til å løse våre viktigste oppgaver: å utvikle oss som mennesker, finne tilhørighet og skape mening.</p>
+        </section>
     </header>
 
     <main class="container">
-        <section class="manifesto">
-            <p class="leading">I en tid hvor alle er fokusert på maskiner tror vi på tilstedeværelse og nærvær.</p>
-            <p class="supporting">Gjennom en komplett prosess som strekker seg fra Innsikt og Konsept til Finansiering, Prosjektledelse og Utvikling, hjelper vi deg å utvikle prosjekter fra start til ferdigstillelse – med mennesket i sentrum av den teknologiske opplevelsen.</p>
-        </section>
-    </main>
+        <p class="leading">I en tid der alle snakker om maskiner, fasiliterer vi tilstedeværelse.
 
     <footer>
         <div class="container footer-content">
-            <p class="contact-text">Si hei på: <a href="mailto:post@inpresence.no" class="email">post@inpresence.no</a></p>
+            <p class="contact-text"> <a href="mailto:post@inpresence.no" class="email">post@inpresence.no</a></p>
         </div>
     </footer>
 
+    <div class="partner-ticker">
+        <div class="ticker-content">
+            <span>MUNCH / Nasjonalbiblioteket / KODE / Sunnaastiftelsen / Barnekreftforeningen / Greenwich University / Addenbrook’s Hospital / Museene i Akershus / Høgskolen Kristiania / Museumsenteret i Hordaland / FFO / ANNO / &nbsp;</span>
+            <span>MUNCH / Nasjonalbiblioteket / KODE / Sunnaastiftelsen / Barnekreftforeningen / Greenwich University / Addenbrook’s Hospital / Museene i Akershus / Høgskolen Kristiania / Museumsenteret i Hordaland / FFO / ANNO / &nbsp;</span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

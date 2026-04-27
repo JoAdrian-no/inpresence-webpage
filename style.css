@@ -4,7 +4,6 @@
     --tech-cyan: #41EAD4;
     --text: #ffffff;
     --text-dim: rgba(255, 255, 255, 0.5);
-    --border: rgba(255, 255, 255, 0.08);
     --font-serif: 'Noto Serif', serif;
     --font-mono: 'JetBrains Mono', monospace;
     --font-header: 'Urbanist', sans-serif;
@@ -15,99 +14,43 @@
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: var(--font-serif); /* Standard font er nÂ Noto Serif */
+    font-family: var(--font-serif);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    isolation: isolate; /* Sikrer at blending skjer korrekt mot bakgrunnen */
 }
 
-/* --- Plexus Animasjon --- */
-.plexus-world {
+#canvas-container {
     position: fixed;
-    inset: 0;
-    z-index: -2;
-    background: radial-gradient(circle at 30% 30%, #0a151a 0%, var(--bg) 100%);
-}
-
-.plexus-svg {
+    top: 0; left: 0;
     width: 100%; height: 100%;
-    opacity: 0.15;
-    transform: scale(1.1);
+    z-index: -1; /* Legger 3D-effekten bak teksten */
 }
 
-.neural-engine {
-    animation: worldFloat 50s infinite linear;
-    transform-origin: center;
-}
+.container { width: 90%; max-width: 1200px; margin: 0 auto; position: relative; }
 
-.wire {
-    fill: none;
-    stroke: var(--tech-cyan);
-    stroke-width: 0.4;
-    stroke-dasharray: 600;
-    stroke-dashoffset: 600;
-    animation: draw 15s infinite alternate ease-in-out;
-}
-
-.pulse-line {
-    stroke: url(#glowGrad);
-    stroke-width: 1;
-    animation: blink 10s infinite ease-in-out;
-}
-
-.node-field .node {
-    position: absolute;
-    width: 2px; height: 2px;
-    background: var(--tech-cyan);
-    border-radius: 50%;
-    animation: float 20s infinite ease-in-out;
-}
-
-.n1 { top: 20%; left: 20%; }
-.n2 { top: 70%; left: 60%; animation-delay: -2s; }
-.n3 { top: 15%; left: 80%; animation-delay: -5s; }
-.n4 { top: 40%; left: 30%; animation-delay: -1s; }
-.n5 { top: 85%; left: 15%; animation-delay: -8s; }
-
-@keyframes worldFloat {
-    from { transform: rotate(0deg) scale(1.1); }
-    to { transform: rotate(360deg) scale(1.1); }
-}
-
-@keyframes draw {
-    0% { stroke-dashoffset: 600; opacity: 0; }
-    50% { stroke-dashoffset: 0; opacity: 0.15; }
-    100% { stroke-dashoffset: -600; opacity: 0; }
-}
-
-@keyframes blink { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.2; } }
-
-@keyframes float {
-    0%, 100% { transform: translate(0, 0); opacity: 0.1; }
-    50% { transform: translate(30px, -30px); opacity: 0.4; }
-}
-
-/* --- Layout --- */
-.container { width: 90%; max-width: 1200px; margin: 0 auto; }
-
-nav { padding: 40px 0; }
+nav { padding: 25px 0; }
 .logo { 
     font-family: var(--font-mono); 
-    font-weight: 300; 
-    text-transform: uppercase; 
     letter-spacing: 4px; 
     font-size: 13px; 
-    color: var(--tech-cyan); 
+    color: #ffffff;
+    text-transform: uppercase; 
 }
 
-.hero { padding: 80px 0 60px; }
+.hero { padding: 60px 0 40px; }
+
 h1 { 
-    font-family: var(--font-header); /* Beholder den tynne Urbanist her for "looken" */
+    font-family: var(--font-header); 
     font-size: clamp(2.5rem, 8vw, 6.5rem); 
-    font-weight: 200; 
+    font-weight: 300; 
     letter-spacing: -3px; 
     line-height: 0.9; 
     text-transform: uppercase; 
-    margin-bottom: 50px; 
+    margin-bottom: 25px;
+    pointer-events: none; /* Lar musen g√• "gjennom" teksten til 3D-scenen */
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 .service-strip {
@@ -115,36 +58,75 @@ h1 {
     flex-wrap: wrap;
     gap: 30px;
     font-family: var(--font-mono);
-    font-size: clamp(0.9rem, 2.1vw, 1.7rem);
-    color: var(--tech-cyan);
-    border-top: 1px solid var(--border);
-    padding-top: 30px;
+    font-size: clamp(0.8rem, 2vw, 1.4rem);
+    color: #ffffff;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 25px;
 }
 
-.manifesto { padding: 60px 0; max-width: 950px; }
-.leading { 
-    font-size: clamp(1.8rem, 4.5vw, 3.2rem); 
-    font-weight: 300; /* Noto Serif ser best ut tynn */
-    font-style: italic; /* Kursiv gir en eksklusiv f¯lelse pÂ Serif */
-    line-height: 1.2; 
-    margin-bottom: 40px; 
-    border-left: 2px solid var(--warm-red);
-    padding-left: 30px;
-}
 .supporting { 
-    font-size: 1.2rem; 
+    font-size: clamp(1.1rem, 2.5vw, 1.8rem);
     font-weight: 300; 
-    color: var(--text-dim); 
-    line-height: 1.7; 
-    padding-left: 32px; 
+    color: #ffffff; 
+    line-height: 1.4; 
+    padding-left: 0px; 
 }
 
-footer { padding: 60px 0 100px; border-top: 1px solid rgba(255,255,255,0.05); }
-.contact-text { font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-dim); }
-.email { color: var(--warm-red); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
-.email:hover { border-bottom: 1px solid var(--warm-red); }
+.manifesto { padding: 40px 0; max-width: 1000px; pointer-events: none; }
 
-@media (max-width: 900px) {
-    .service-strip { flex-direction: column; gap: 15px; }
-    .leading { padding-left: 20px; }
+.manifesto { padding: 40px 0; max-width: 1000px; pointer-events: none; margin-top: 40px; }
+
+.leading { 
+    font-size: clamp(0.9rem, 4.5vw, 1.2rem); /* Fikset 0.2rem som var altfor lite */
+    font-weight: 300; 
+    font-style: italic; 
+    line-height: 1.2; 
+    margin-bottom: 25px; 
+    border-left: 2px solid var(--warm-red);
+    padding-left: 20px;
+    color: #ffffff;
+}
+
+
+footer { padding: 30px 0 100px; }
+.contact-text { font-family: var(--font-mono); font-size: 0.85rem; color: #ffffff; }
+.email { color: #ffffff; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
+.email:hover { border-bottom: 1px solid #ffffff; }
+
+/* Partner Ticker */
+.partner-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px; /* Definert h√∏yde for en tydeligere stripe */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #000000; /* Helt sort bakgrunn for maksimal kontrast */
+    backdrop-filter: blur(8px);    /* Gj√∏re bakgrunnen bak stripen uskarp */
+    z-index: 1000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap;
+}
+
+.ticker-content {
+    display: flex;
+    width: max-content;
+    animation: ticker 45s linear infinite; /* Litt raskere for bedre flyt */
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    will-change: transform; /* Optimerer for jevnere animasjon */
+}
+
+.ticker-content span {
+    flex-shrink: 0; /* Hindrer at teksten krymper */
+    padding-right: 50px; /* Legger til et mellomrom mellom repetisjonene */
+}
+
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Flytter halvparten av total bredde for s√∏ml√∏s loop */
 }
